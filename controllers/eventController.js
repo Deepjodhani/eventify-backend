@@ -151,9 +151,13 @@ const deregisterEvent = async (req, res) => {
     }
 
     // Check if user is registered
-    if (!event.registrations.includes(req.user.id)) {
-      return res.status(400).json({ message: "You are not registered" });
-    }
+  const isRegistered = event.registrations.some(
+  (uid) => uid.toString() === req.user.id
+);
+
+if (!isRegistered) {
+  return res.status(400).json({ message: "You are not registered" });
+}
 
     // Remove user from registrations
     event.registrations = event.registrations.filter(
