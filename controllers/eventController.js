@@ -141,6 +141,28 @@ const deleteEvent = async (req, res) => {
   }
 };
 
+// DEREGISTER FROM EVENT
+const deregisterEvent = async (req, res) => {
+  const event = await Event.findById(req.params.id);
+
+  if (!event) {
+    return res.status(404).json({ message: "Event not found" });
+  }
+
+  if (!event.registrations.includes(req.user.id)) {
+    return res.status(400).json({ message: "Not registered for this event" });
+  }
+
+  event.registrations = event.registrations.filter(
+    (userId) => userId.toString() !== req.user.id
+  );
+
+  await event.save();
+
+  res.status(200).json({ message: "Deregistered successfully" });
+};
+
+
 module.exports = {
   createEvent,
   getEvents,
@@ -148,4 +170,5 @@ module.exports = {
   registerEvent,
   updateEvent,
   deleteEvent,
+  deregisterEvent,
 };

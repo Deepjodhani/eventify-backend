@@ -5,6 +5,7 @@ const {
   getEvent,
   registerEvent,
   updateEvent,
+  deregisterEvent,
   deleteEvent,
 } = require("../controllers/eventController");
 
@@ -29,5 +30,10 @@ router.delete("/:id", protect, deleteEvent);
 
 // REGISTER FOR EVENT
 router.post("/:id/register", protect, registerEvent);
+
+// DEREGISTER FROM EVENT
+router.post("/:id/deregister", protect, deregisterEvent);
+
+
 
 module.exports = router;
