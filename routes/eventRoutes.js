@@ -32,7 +32,7 @@ router.delete("/:id", protect, deleteEvent);
 router.post("/:id/register", protect, registerEvent);
 
 // DEREGISTER FROM EVENT
-router.post("/:id/deregister", protect, deregisterEvent);
+router.delete("/:id/deregister", protect, deregisterEvent);
 
 
 
